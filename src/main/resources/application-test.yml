@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/entertainment_capstone_3_test
+    username: ${POSTGRES_LOCAL_USER:postgres}
+    password: ${POSTGRES_LOCAL_PASSWORD:admin}
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
