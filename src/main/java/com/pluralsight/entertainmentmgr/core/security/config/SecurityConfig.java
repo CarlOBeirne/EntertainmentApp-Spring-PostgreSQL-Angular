@@ -42,7 +42,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/auth/**").permitAll()
-                    .anyRequest().authenticated())
+                    .anyRequest().permitAll())
             .addFilterBefore(new JwtFilter(appUserRepository, jwtUtil), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

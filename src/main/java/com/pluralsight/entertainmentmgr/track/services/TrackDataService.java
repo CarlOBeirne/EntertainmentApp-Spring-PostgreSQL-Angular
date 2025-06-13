@@ -56,9 +56,9 @@ public class TrackDataService {
         Track entity = trackMapper.toEntity(trackDto);
         Set<Artist> artists = addArtist(trackDto);
         entity.setArtists(artists);
-
-        Genre genre = addGenre(trackDto);
-        entity.setGenre(genre);
+//
+//        Genre genre = addGenre(trackDto);
+//        entity.setGenre(genre);
 
         return trackMapper.toDTO(trackRepository.save(entity));
     }

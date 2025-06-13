@@ -19,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/track")
 @Log4j2
+@CrossOrigin("*")
 public class TrackController {
 
     private final TrackDataService trackDataService;
@@ -61,7 +62,7 @@ public class TrackController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('CREATOR')")
+//    @PreAuthorize("hasRole('ADMIN') or hasAuthority('CREATOR')")
     @PostMapping(path = "/new")
     public ResponseEntity<TrackDto> createTrack(@NonNull @RequestBody TrackDto trackDto) {
         try {

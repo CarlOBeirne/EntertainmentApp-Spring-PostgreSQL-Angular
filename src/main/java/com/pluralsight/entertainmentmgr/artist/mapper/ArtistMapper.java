@@ -13,12 +13,12 @@ public interface ArtistMapper extends BaseMapper<Artist, ArtistDto> {
 
     @Override
     @Mapping(target = "tracks", ignore = true)
-    @Mapping(target = "appUser", ignore = true)
+//    @Mapping(target = "appUser", ignore = true)
     Artist toEntity(ArtistDto dto);
 
     @Override
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "tracks", ignore = true)
-    @Mapping(target = "appUser", ignore = true)
+//    @Mapping(target = "appUser", ignore = true)
     void updateEntityFromDto(ArtistDto dto, @MappingTarget Artist entity);
 }
