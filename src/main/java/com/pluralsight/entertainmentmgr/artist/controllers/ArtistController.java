@@ -24,7 +24,7 @@ public class ArtistController {
 
     private final ArtistDataService artistDataService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(path = "/new")
     public ResponseEntity<ArtistDto> createArtist(@NonNull @RequestBody ArtistDto artist)  {
         try {
@@ -53,11 +53,11 @@ public class ArtistController {
                 log.info("Could not find artist with id {}", artistDto.getId());
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
-            boolean isAdmin = user.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
-            if (!isAdmin && !artistDto.getAppUser().getUsername().equals(user.getUsername())) {
-                log.warn("Attempt to update artist \"{}\" was made by a user with different username \"{}\"", artistDto.getName(), user.getUsername());
-                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
-            }
+//            boolean isAdmin = user.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+//            if (!isAdmin && !artistDto.getAppUser().getUsername().equals(user.getUsername())) {
+//                log.warn("Attempt to update artist \"{}\" was made by a user with different username \"{}\"", artistDto.getName(), user.getUsername());
+//                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+//            }
             return ResponseEntity.ok(artistDataService.updateArtist(id, artistDto));
         } catch (InvalidArtistException e) {
             log.warn("Warning trying to update artist. {}",e.getMessage());

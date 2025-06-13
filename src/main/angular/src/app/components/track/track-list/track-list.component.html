@@ -1,1 +1,35 @@
-<p>track-list works!</p>
+<div class="container">
+  <h2>Tracks</h2>
+  <!-- <button (click)="addCourse()" class="btn btn-primary mb-3">
+    Add New Course
+  </button> -->
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Duration</th>
+      <th>Year Released</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let track of tracks; trackBy: trackByTrackId">
+      <td>{{ track.title }}</td>
+      <td>{{ track.durationSeconds }}</td>
+      <td>{{ track.yearReleased }}</td>
+      <!-- <td>
+        <button (click)="editCourse(course)" class="btn btn-sm btn-info me-2">
+          Edit
+        </button>
+        <button (click)="deleteCourse(course)" class="btn btn-sm btn-danger">
+          Delete
+        </button>
+      </td> -->
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+</div>

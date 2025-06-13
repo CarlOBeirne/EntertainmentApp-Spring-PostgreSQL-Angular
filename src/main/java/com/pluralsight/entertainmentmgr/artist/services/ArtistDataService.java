@@ -51,11 +51,11 @@ public class ArtistDataService {
             throw new InvalidArtistException("Attempted to create a new artist that already has an Id");
         }
         Artist artistEntity = artistMapper.toEntity(artistDto);
-        Optional<AppUser> optionalUser = appUserRepository.findByUsername(artistDto.getAppUser().getUsername());
-        if (optionalUser.isEmpty()) {
-            throw new InvalidArtistException("Attempted to create an artist with an invalid username");
-        }
-        artistEntity.setAppUser(optionalUser.get());
+//        Optional<AppUser> optionalUser = appUserRepository.findByUsername(artistDto.getAppUser().getUsername());
+//        if (optionalUser.isEmpty()) {
+//            throw new InvalidArtistException("Attempted to create an artist with an invalid username");
+//        }
+//        artistEntity.setAppUser(optionalUser.get());
         Artist persistedArtist = artistRepository.save(artistEntity);
         log.info("New artist created with id {}", persistedArtist.getId());
         return artistMapper.toDTO(persistedArtist);

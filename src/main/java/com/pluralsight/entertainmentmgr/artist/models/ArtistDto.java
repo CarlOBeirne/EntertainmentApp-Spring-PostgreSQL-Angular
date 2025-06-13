@@ -20,6 +20,6 @@ public class ArtistDto extends BaseDto {
     private String biography;
     private String nationality;
     private int yearFounded;
-    private AppUser appUser;
+//    private AppUser appUser;
 
 }

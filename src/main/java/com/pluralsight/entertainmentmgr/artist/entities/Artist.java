@@ -35,8 +35,8 @@ public class Artist extends BaseEntity {
     @EqualsAndHashCode.Exclude
     private Set<Track> tracks = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, updatable = false, unique = true)
-    private AppUser appUser;
+//    @OneToOne
+//    @JoinColumn(name = "user_id", nullable = false, updatable = false, unique = true)
+//    private AppUser appUser;
 
 }

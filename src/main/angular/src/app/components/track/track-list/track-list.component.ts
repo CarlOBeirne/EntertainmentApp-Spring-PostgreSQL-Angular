@@ -24,4 +24,8 @@ export class TrackListComponent implements OnInit {
     })
   }
 
+  trackByTrackId(index: number, track: Track): number {
+    return track.id ? track.id : index
+  }
+
 }

@@ -1,7 +1,7 @@
 export interface Track {
     id?: number;
     title: String;
-    duration: number;
+    durationSeconds: number;
     yearReleased: number;
     beatsPerMinute: number;
     // genre: Genre;

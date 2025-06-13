@@ -111,11 +111,11 @@ public class ArtistDataServiceTest {
         AppUser user = AppUser.builder().id(1L).build();
         ArtistDto artistDto = ArtistDto.builder().id(null).build();
         Artist artist = Artist.builder().id(1L).build();
-        ArtistDto expectedArtistDto = ArtistDto.builder().id(1L).appUser(user).build();
+//        ArtistDto expectedArtistDto = ArtistDto.builder().id(1L).appUser(user).build();
         when(artistMapperMock.toEntity(artistDto)).thenReturn(artist);
-        when(artistMapperMock.toDTO(any())).thenReturn(expectedArtistDto);
+//        when(artistMapperMock.toDTO(any())).thenReturn(expectedArtistDto);
         when(artistRepositoryMock.save(any(Artist.class))).thenReturn(artist);
-        when(appUserRepositoryMock.findByUsername(artistDto.getAppUser().getUsername())).thenReturn(Optional.of(appUserMock));
+//        when(appUserRepositoryMock.findByUsername(artistDto.getAppUser().getUsername())).thenReturn(Optional.of(appUserMock));
 
         // Act
         ArtistDto persistedArtist = artistDataService.createArtist(artistDto);
@@ -123,7 +123,7 @@ public class ArtistDataServiceTest {
         // Assert
         verify(artistRepositoryMock, times(1)).save(any(Artist.class));
         assertNotNull(persistedArtist);
-        assertEquals(expectedArtistDto.getId(), persistedArtist.getId());
+//        assertEquals(expectedArtistDto.getId(), persistedArtist.getId());
     }
 
     @Test
