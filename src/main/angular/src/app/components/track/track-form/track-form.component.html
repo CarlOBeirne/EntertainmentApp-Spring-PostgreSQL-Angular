@@ -1,0 +1,39 @@
+<div class="container-fluid mt-2">
+  <h2> {{ isEditMode ? 'Update Track' : 'New Track' }} </h2>
+  <form class="form-group" [formGroup]="trackForm" (ngSubmit)="onSubmit()">
+    <div class="form-row mb-3">
+      <div class="col col-md-4">
+        <label for="title" class="form-label">Track Name</label>
+        <input id="title" type="text" class="form-control" formControlName="title">
+      </div>
+      <div class="col col-md-4">
+        <label for="durationInSeconds" class="form-label">Duration</label>
+        <input id="durationInSeconds" type="text" class="form-control" formControlName="durationInSeconds">
+      </div>
+    </div>
+    <div class="form-row mb-3">
+      <div class="col col-md-4">
+        <label for="yearReleased" class="form-label">Year Released</label>
+        <select id="yearReleased" class="form-control" formControlName="yearReleased" >
+          <option [ngValue]="null">-- Choose Year --</option>
+          <option *ngFor="let year of years"> {{ year }}</option>
+        </select>
+        <div *ngIf="trackForm.get('yearReleased')?.touched && trackForm.get('yearReleased')?.invalid">
+          <small class="text-danger">Invalid selection</small>
+        </div>
+      </div>
+      <div class="col col-md-4">
+        <label for="beatsPerMinute" class="form-label">Beats Per Minute</label>
+        <input id="beatsPerMinute" type="text" class="form-control" formControlName="beatsPerMinute">
+        <div *ngIf="trackForm.get('beatsPerMinute')?.touched && trackForm.get('beatsPerMinute')?.invalid">
+          <small class="text-danger">Invalid value</small>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success mr-2" [disabled]="trackForm.invalid">Submit</button>
+    <button class="btn btn-danger me-2">Cancel</button>
+  </form>
+  <div *ngIf="errorMessage">
+    <small class="text-danger">{{errorMessage}}</small>
+  </div>
+</div>
