@@ -6,6 +6,7 @@ import {AppComponent} from "./app.component";
 import {MenuModule} from "./components/menu/menu.module";
 import { TrackModule } from './components/track/track.module';
 import { HttpClientModule } from '@angular/common/http';
+import {ArtistModule} from "./components/artist/artist.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     MenuModule,
     HttpClientModule,
-    TrackModule
+    TrackModule,
+    ArtistModule
   ],
   providers: [],
   bootstrap: [AppComponent]
