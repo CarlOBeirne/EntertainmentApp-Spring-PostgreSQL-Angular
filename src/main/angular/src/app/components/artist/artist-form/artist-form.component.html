@@ -1,0 +1,56 @@
+<div class="container-fluid mt-2">
+  <h2> {{ isEditMode ? 'Update Artist' : 'New Artist' }} </h2>
+  <form class="form-group" [formGroup]="artistForm" (ngSubmit)="onSubmit()">
+    <div class="form-row mb-3">
+      <div class="col col-md-4">
+        <label for="artistName" class="form-label">Artist Name</label>
+        <input id="artistName" type="text" class="form-control" formControlName="artistName" placeholder="John Doe">
+      </div>
+      <div class="col col-md-4">
+        <label for="artistType" class="form-label">Artist Type</label>
+        <select id="artistType" class="form-control" formControlName="artistType">
+          <option [ngValue]="null">-- Choose Artist Type --</option>
+          <option *ngFor="let key of artistTypeEnumKeys" [ngValue]="key"> {{ artistType[key] }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row mb-3">
+      <div class="col col-md-4">
+        <label for="artistCountry" class="form-label">Artist Type</label>
+        <select id="artistCountry" class="form-control" formControlName="nationality">
+          <option [ngValue]="null">-- Choose Country --</option>
+          <option *ngFor="let country of countryList"> {{ country }}</option>
+        </select>
+      </div>
+      <div class="col col-md-4">
+        <label for="yearFounded" class="form-label">Year Founded</label>
+        <select id="yearFounded" class="form-control" formControlName="yearFounded" >
+          <option [ngValue]="null">-- Choose Year --</option>
+          <option *ngFor="let year of years"> {{ year }}</option>
+        </select>
+        <div *ngIf="artistForm.get('yearFounded')?.touched && artistForm.get('yearFounded')?.invalid">
+          <small class="text-danger">Invalid selection</small>
+        </div>
+      </div>
+    </div>
+    <div class="form-row mb-3">
+      <div class="col col-md-8">
+        <label for="biography" class="form-label">Biography</label>
+        <textarea id="biography" class="form-control" formControlName="biography" rows="4" ></textarea>
+        <div>
+          <small>Remaining Characters: {{255 - artistForm.get('biography')?.value?.length || 0}}</small>
+        </div>
+        <div *ngIf="artistForm.get('biography')?.errors?.['maxLength'] && artistForm.get('biography')?.invalid">
+          <small class="text-danger">Bio must be less than 255 characters</small>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success mr-2" [disabled]="artistForm.invalid">Submit</button>
+    <button class="btn btn-danger me-2">Cancel</button>
+  </form>
+  <div *ngIf="errorMessage">
+    <small class="text-danger">{{errorMessage}}</small>
+  </div>
+
+
+</div>
