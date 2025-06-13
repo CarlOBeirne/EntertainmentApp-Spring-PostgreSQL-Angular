@@ -10,6 +10,7 @@
       <th>Title</th>
       <th>Duration</th>
       <th>Year Released</th>
+      <th>Beats Per Minute</th>
     </tr>
     </thead>
     <tbody>
@@ -17,14 +18,15 @@
       <td>{{ track.title }}</td>
       <td>{{ track.durationSeconds }}</td>
       <td>{{ track.yearReleased }}</td>
-      <!-- <td>
-        <button (click)="editCourse(course)" class="btn btn-sm btn-info me-2">
+      <td>{{ track.beatsPerMinute }}</td>
+      <td>
+        <button (click)="editTrack(track)" class="btn btn-sm btn-info me-2">
           Edit
         </button>
-        <button (click)="deleteCourse(course)" class="btn btn-sm btn-danger">
+        <button (click)="deleteTrack(track)" class="btn btn-sm btn-danger">
           Delete
         </button>
-      </td> -->
+      </td>
     </tr>
     </tbody>
   </table>

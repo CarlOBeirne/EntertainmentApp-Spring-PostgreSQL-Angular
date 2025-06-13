@@ -29,7 +29,7 @@ public class TrackController {
         try {
             List<TrackDto> allTracks = trackDataService.findAllTracks();
             return allTracks.isEmpty() ?
-                    ResponseEntity.notFound().build() : ResponseEntity.ok(allTracks) ;
+                    ResponseEntity.noContent().build() : ResponseEntity.ok(allTracks) ;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
@@ -82,7 +82,7 @@ public class TrackController {
 
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('CREATOR')")
+//    @PreAuthorize("hasRole('ADMIN') or hasAuthority('CREATOR')")
     @PutMapping("/update/{id}")
     public ResponseEntity<TrackDto> updateTrack(@RequestBody TrackDto trackDto, @PathVariable Long id) {
         try {
@@ -100,7 +100,7 @@ public class TrackController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('CREATOR')")
+//    @PreAuthorize("hasRole('ADMIN') or hasAuthority('CREATOR')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteTrackById(@PathVariable Long id) {
         try {

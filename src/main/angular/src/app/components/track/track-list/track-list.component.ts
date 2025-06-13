@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Track } from 'src/app/models/track';
 import { TrackService } from 'src/app/services/track.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-track-list',
@@ -11,7 +12,7 @@ export class TrackListComponent implements OnInit {
   tracks: Track[] = [];
   errorMessage = '';
 
-  constructor(private trackService: TrackService) {}
+  constructor(private trackService: TrackService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadTracks();
@@ -24,8 +25,27 @@ export class TrackListComponent implements OnInit {
     })
   }
 
+  addTrack(): void {
+    this.router.navigate(['/track/new']);
+  }
+
+  editTrack(track: Track): void {
+    this.router.navigate([`/track/update`, track.id]);
+  }
+
+  deleteTrack(track: Track): void {
+    if(track.id === null) {
+      return;
+    }
+    if(confirm(`Are you sure you want to delete "${track.title}"?`)) {
+      this.trackService.delete(track.id).subscribe({
+        next: () => this.loadTracks(),
+        error: () => (this.errorMessage = "Error deleting track")
+      })
+    }
+  }
+
   trackByTrackId(index: number, track: Track): number {
     return track.id ? track.id : index
   }
-
 }

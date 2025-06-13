@@ -12,8 +12,28 @@ export class TrackService {
 
   constructor(private http: HttpClient) {}
 
-  // GET /api/tracks
+  // GET ALL TRACKS
   findAll(): Observable<Track[]> {
     return this.http.get<Track[]>(`${this.baseUrl}/all`);
+  }
+
+  // GET TRACK BY ID
+  findById(id: number): Observable<Track> {
+    return this.http.get<Track>(`${this.baseUrl}/${id}`);
+  }
+
+  // POST TRACK
+  create(track: Track): Observable<Track> {
+    return this.http.post<Track>(this.baseUrl, track);
+  }
+
+  // PUT TRACK
+  update(id: number, track: Track): Observable<Track> {
+    return this.http.put<Track>(`${this.baseUrl}/update/${id}`, track);
+  }
+
+  // DELETE TRACK
+  delete(id: number | undefined): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
 }
