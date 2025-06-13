@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ArtistFormComponent} from "./components/artist/artist-form/artist-form.component";
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: 'artist/new', component: ArtistFormComponent},
+  {path: '', redirectTo: '/', pathMatch: 'full'},
+  {path: '**', redirectTo: '/'}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
