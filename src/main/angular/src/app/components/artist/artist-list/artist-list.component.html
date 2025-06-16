@@ -1,0 +1,27 @@
+<div class="container-fluid mt-2">
+  <h2>Artist List</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Artist Name</th>
+        <th scope="col">Artist Type</th>
+        <th scope="col">Nationality</th>
+        <th scope="col">Founded</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let artist of artistList">
+        <td>{{artist.name}}</td>
+        <td>{{getArtistType(artist.artistType)}}</td>
+        <td>{{artist.nationality}}</td>
+        <td>{{artist.yearFounded}}</td>
+        <td>
+          <button class="btn btn-secondary btn-sm mr-2" (click)="updateArtist(artist)">Edit</button>
+          <button class="btn btn-danger btn-sm mr-2" (click)="deleteArtist(artist)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-secondary" (click)="createArtist()">New Artist</button>
+</div>

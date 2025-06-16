@@ -1,11 +1,11 @@
-<div class="container-fluid mt-2">
+<div class="container-fluid">
   <h2> {{ isEditMode ? 'Update Artist' : 'New Artist' }} </h2>
   <form class="form-group" [formGroup]="artistForm" (ngSubmit)="onSubmit()">
     <div class="form-row mb-3">
       <div class="col col-md-4">
-        <label for="artistName" class="form-label">Artist Name</label>
-        <input id="artistName" type="text" class="form-control" formControlName="artistName" placeholder="John Doe">
-        <div *ngIf="artistForm.get('artistName')?.touched && artistForm.get('artistName')?.invalid">
+        <label for="name" class="form-label">Artist Name</label>
+        <input id="name" type="text" class="form-control" formControlName="name" placeholder="John Doe">
+        <div *ngIf="artistForm.get('name')?.touched && artistForm.get('name')?.invalid">
           <small class="text-danger">Name cannot be blank</small>
         </div>
       </div>
@@ -60,6 +60,4 @@
   <div *ngIf="errorMessage">
     <small class="text-danger">{{errorMessage}}</small>
   </div>
-
-
 </div>

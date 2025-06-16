@@ -45,18 +45,21 @@ export class ArtistFormComponent implements OnInit {
       return;
     }
     const artist: Artist = {
-      name: this.artistForm.value.artistName,
+      name: this.artistForm.value.name,
       artistType: this.artistForm.value.artistType,
       biography: this.artistForm.value.biography,
       nationality: this.artistForm.value.nationality,
       yearFounded: this.artistForm.value.yearFounded
     }
     if (this.isEditMode && this.artistId !== null) {
-      // Update
-
+      artist.id = this.artistId;
+      this.artistService.updateArtist(this.artistId!, artist).subscribe({
+        next: () => this.router.navigate(['/artist/all']),
+        error: () => this.errorMessage = 'Error updating artist'
+      });
     } else {
       this.artistService.createArtist(artist).subscribe({
-        next: () => this.router.navigate(['/']),
+        next: () => this.router.navigate(['/artist/all']),
         error: (err) => this.errorMessage = err.value
       })
     }
@@ -71,7 +74,7 @@ export class ArtistFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.artistForm = this.fb.group({
-      artistName: ['', [Validators.required, ]],
+      name: ['', [Validators.required, ]],
       artistType: [null, [Validators.required]],
       nationality: [null, [Validators.required]],
       yearFounded: [null, [Validators.required]],

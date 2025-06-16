@@ -42,7 +42,7 @@ public class ArtistController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and hasAuthority('CREATOR'))")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or (hasRole('ROLE_USER') and hasAuthority('CREATOR'))")
     @PutMapping(path = "/update/{id}")
     public ResponseEntity<ArtistDto> updateArtist(@NonNull @PathVariable Long id,
                                                   @NonNull @RequestBody ArtistDto artistDto,
