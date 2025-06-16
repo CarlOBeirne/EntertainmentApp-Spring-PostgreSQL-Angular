@@ -73,11 +73,6 @@ public class TrackDataService {
         }
 
         Track entity = trackMapper.toEntity(trackDto);
-        Optional<Track> existing = trackRepository.findById(id);
-        if (existing.isEmpty()) {
-            throw new InvalidTrackException("Track does not exist.");
-        }
-        trackMapper.updateEntityFromDto(trackDto, existing.get());
         return trackMapper.toDTO(trackRepository.save(entity));
 
     }

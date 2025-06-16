@@ -12,13 +12,9 @@ public interface TrackMapper extends BaseMapper<Track, TrackDto> {
     TrackDto toDTO(Track entity);
 
     @Override
-    @Mapping(target = "artists", ignore = true)
-    @Mapping(target = "genre", ignore = true)
     Track toEntity(TrackDto dto);
 
     @Override
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "artists", ignore = true)
-    @Mapping(target = "genre", ignore = true)
     void updateEntityFromDto(TrackDto dto, @MappingTarget Track entity);
 }
