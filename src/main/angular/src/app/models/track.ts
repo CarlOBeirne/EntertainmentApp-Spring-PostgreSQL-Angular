@@ -1,3 +1,5 @@
+import {Artist} from "./artist";
+
 export interface Track {
     id?: number;
     title: String;
@@ -5,5 +7,5 @@ export interface Track {
     yearReleased: number;
     beatsPerMinute: number;
     // genre: Genre;
-    // artists: Set<Artist>;
+    artists: Artist[];
 }

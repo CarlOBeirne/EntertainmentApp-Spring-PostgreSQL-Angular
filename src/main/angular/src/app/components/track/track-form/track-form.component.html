@@ -7,14 +7,14 @@
         <input id="title" type="text" class="form-control" formControlName="title">
       </div>
       <div class="col col-md-4">
-        <label for="durationInSeconds" class="form-label">Duration</label>
-        <input id="durationInSeconds" type="text" class="form-control" formControlName="durationInSeconds">
+        <label for="durationSeconds" class="form-label">Duration</label>
+        <input id="durationSeconds" type="text" class="form-control" formControlName="durationSeconds">
       </div>
     </div>
     <div class="form-row mb-3">
       <div class="col col-md-4">
         <label for="yearReleased" class="form-label">Year Released</label>
-        <select id="yearReleased" class="form-control" formControlName="yearReleased" >
+        <select id="yearReleased" class="form-control" formControlName="yearReleased">
           <option [ngValue]="null">-- Choose Year --</option>
           <option *ngFor="let year of years"> {{ year }}</option>
         </select>
@@ -30,10 +30,22 @@
         </div>
       </div>
     </div>
+    <div class="form-row mb-3">
+      <div class="col col-md-4">
+        <label for="artists" class="form-label">Artists</label>
+        <select id="artists" class="form-control" formControlName="artists">
+          <option [ngValue]="null">-- Choose Artists --</option>
+          <option *ngFor="let artist of allArtists | async" [ngValue]="artist"> {{ artist.name }}</option>
+        </select>
+        <div *ngIf="trackForm.get('artist')?.touched && trackForm.get('artist')?.invalid">
+          <small class="text-danger">Invalid selection</small>
+        </div>
+      </div>
+    </div>
     <button type="submit" class="btn btn-success mr-2" [disabled]="trackForm.invalid">Submit</button>
     <button class="btn btn-danger me-2">Cancel</button>
   </form>
   <div *ngIf="errorMessage">
-    <small class="text-danger">{{errorMessage}}</small>
+    <small class="text-danger">{{ errorMessage }}</small>
   </div>
 </div>
