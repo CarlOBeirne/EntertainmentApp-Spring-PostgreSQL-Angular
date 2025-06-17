@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -117,9 +116,15 @@ public class TrackController {
         }
     }
 
-//    @PostMapping("/{trackId}/remove-artist/{artistId}")
-//    public ResponseEntity<TrackDto> removeArtistFromTrack(@PathVariable Long trackId, @PathVariable Long artistId) {
-//        TrackDto track = trackDataService.removeArtist(trackId, artistId);
-//        return track != null ? ResponseEntity.ok(track) : ResponseEntity.badRequest().build();
-//    }
+    @PostMapping("/{trackId}/add-artist/{artistId}")
+    public ResponseEntity<TrackDto> addArtistToTrack(@PathVariable Long trackId, @PathVariable Long artistId) {
+        TrackDto updatedTrackDto = trackDataService.addArtist(trackId, artistId);
+        return updatedTrackDto != null ? ResponseEntity.ok(updatedTrackDto) : ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{trackId}/remove-artist/{artistId}")
+    public ResponseEntity<TrackDto> removeArtistFromTrack(@PathVariable Long trackId, @PathVariable Long artistId) {
+        TrackDto updatedTrack = trackDataService.removeArtist(trackId, artistId);
+        return updatedTrack != null ? ResponseEntity.ok(updatedTrack) : ResponseEntity.badRequest().build();
+    }
 }

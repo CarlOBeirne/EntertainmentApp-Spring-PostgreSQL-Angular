@@ -1,7 +1,7 @@
 package com.pluralsight.entertainmentmgr.track.services;
 
 import com.pluralsight.entertainmentmgr.artist.entities.Artist;
-import com.pluralsight.entertainmentmgr.artist.models.ArtistDto;
+import com.pluralsight.entertainmentmgr.artist.mapper.ArtistMapper;
 import com.pluralsight.entertainmentmgr.artist.repositories.ArtistRepository;
 import com.pluralsight.entertainmentmgr.core.exceptions.InvalidTrackException;
 import com.pluralsight.entertainmentmgr.genre.entities.Genre;
@@ -18,10 +18,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,6 +34,7 @@ public class TrackDataService {
 
     private final GenreMapper genreMapper;
     private final GenreDataService genreDataService;
+    private final ArtistMapper artistMapper;
 
     public Optional<TrackDto> findTrackById(@NonNull Long trackId) {
         return trackRepository.findById(trackId)
@@ -54,12 +53,6 @@ public class TrackDataService {
             throw new InvalidTrackException("Track id already exists");
         }
         Track entity = trackMapper.toEntity(trackDto);
-        Set<Artist> artists = addArtist(trackDto);
-        entity.setArtists(artists);
-//
-//        Genre genre = addGenre(trackDto);
-//        entity.setGenre(genre);
-
         return trackMapper.toDTO(trackRepository.save(entity));
     }
 
@@ -88,39 +81,34 @@ public class TrackDataService {
                 .toList();
     }
 
-    private Set<Artist> addArtist(@NonNull TrackDto track) {
-        Set<Artist> artists = new HashSet<>();
-        if (track.getArtists() == null) {
-            throw new InvalidTrackException("No artist defined on track.");
-        }
-        for (ArtistDto artistDto : track.getArtists()) {
-            Optional<Artist> artist = artistRepository.findById(artistDto.getId());
-            if (artist.isPresent()) {
-                artists.add(artist.get());
-            }
-            else {
-                throw new InvalidTrackException("Artist does not exist.");
-            }
-        }
-        return artists;
+    public TrackDto addArtist(@NonNull Long trackId, @NonNull Long artistId) {
+        Track track = trackRepository.findById(trackId).orElse(null);
+        Artist artist = artistRepository.findById(artistId).orElse(null);
+
+        if(track == null || artist == null) { return null; };
+
+        track.getArtists().add(artist);
+        trackRepository.save(track);
+
+        return trackMapper.toDTO(track);
     }
 
-    // DOES NOT SEEM TO BE A NEED FOR IT ?
-//    @Transactional
-//    public TrackDto removeArtist(Long trackId, Long artistId) {
-//        Track track = trackRepository.findById(trackId).orElse(null);
-//        Artist artist = artistRepository.findById(artistId).orElse(null);
-//        if (track == null || artist == null) { return null; }
-//
-//        track.getArtists().remove(artist);
-//        return trackMapper.toDTO(trackRepository.save(track));
-//    }
+    public TrackDto removeArtist(@NonNull Long trackId, @NonNull Long artistId) {
+        Track track = trackRepository.findById(trackId).orElse(null);
+        Artist artist = artistRepository.findById(artistId).orElse(null);
+
+        if(track == null || artist == null) { return null; };
+
+        track.getArtists().remove(artist);
+        trackRepository.save(track);
+
+        return trackMapper.toDTO(track);
+    }
 
     private Genre addGenre(@NonNull TrackDto trackDto) {
         Optional<GenreDto> genre = genreDataService.findGenreById(trackDto.getGenre().getId());
         return genreMapper.toEntity(genre.get());
     }
-
 
     // ALSO SEEMS LIKE THERE IS NO NEED ?
 //    private Genre removeGenre(@NonNull TrackDto trackDto) {

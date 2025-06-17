@@ -30,22 +30,75 @@
         </div>
       </div>
     </div>
-    <div class="form-row mb-3">
-      <div class="col col-md-4">
-        <label for="artists" class="form-label">Artists</label>
-        <select id="artists" class="form-control" formControlName="artists">
-          <option [ngValue]="null">-- Choose Artists --</option>
-          <option *ngFor="let artist of allArtists | async" [ngValue]="artist"> {{ artist.name }}</option>
-        </select>
-        <div *ngIf="trackForm.get('artist')?.touched && trackForm.get('artist')?.invalid">
-          <small class="text-danger">Invalid selection</small>
-        </div>
-      </div>
-    </div>
-    <button type="submit" class="btn btn-success mr-2" [disabled]="trackForm.invalid">Submit</button>
-    <button class="btn btn-danger me-2">Cancel</button>
+<!--    <div class="form-row mb-3">-->
+<!--      <div class="col col-md-4">-->
+<!--        <label for="artists" class="form-label">Artists</label>-->
+<!--        <select id="artists" class="form-control" formControlName="artists">-->
+<!--          <option [ngValue]="null">&#45;&#45; Choose Artists &#45;&#45;</option>-->
+<!--          <option *ngFor="let artist of allArtists" [ngValue]="artist"> {{ artist.name }}</option>-->
+<!--        </select>-->
+<!--        <div *ngIf="trackForm.get('artist')?.touched && trackForm.get('artist')?.invalid">-->
+<!--          <small class="text-danger">Invalid selection</small>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <button type="submit" class="btn btn-success mr-2" [disabled]="trackForm.invalid">Submit</button>-->
+<!--    <button class="btn btn-danger me-2">Cancel</button>-->
   </form>
   <div *ngIf="errorMessage">
     <small class="text-danger">{{ errorMessage }}</small>
+  </div>
+
+  <div *ngIf="isEditMode" class="mt-5">
+    <h3>Registered Artists</h3>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Nationality</th>
+        <th>Year Founded</th>
+        <th style="width: 120px;">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let artist of registeredArtist">
+        <td>{{ artist.name }}</td>
+        <td>{{ artist.artistType }}</td>
+        <td>{{ artist.nationality }}</td>
+        <td>{{ artist.yearFounded }}</td>
+        <td>
+          <button (click)="removeArtist(artist.id!)" class="btn btn-sm btn-danger">Remove</button>
+        </td>
+      </tr>
+      <tr *ngIf="registeredArtist.length === 0">
+        <td colspan="4" class="text-center">No artists registered yet.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <h3 class="mt-4">Add Artist</h3>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Nationality</th>
+        <th>Year Founded</th>
+        <th style="width: 120px;">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let artist of allArtists">
+        <td>{{ artist.name }}</td>
+        <td>{{ artist.artistType }}</td>
+        <td>{{ artist.nationality }}</td>
+        <td>{{ artist.yearFounded }}</td>
+        <td>
+          <button (click)="addArtist(artist.id!)" class="btn btn-sm btn=success" [disabled]="isRegistered(artist)">{{ isRegistered(artist) ? 'Registered' : 'Register' }}</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
