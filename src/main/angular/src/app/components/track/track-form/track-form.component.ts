@@ -42,7 +42,7 @@ export class TrackFormComponent implements OnInit {
       durationSeconds: ['', [Validators.required, Validators.min(1)]],
       yearReleased: ['', [Validators.required]],
       beatsPerMinute: ['', [Validators.required, Validators.min(1)]],
-      artists: [[null], [Validators.required]],
+      artists: [[], [Validators.required]],
     });
 
     // Check if route has an id
@@ -62,16 +62,31 @@ export class TrackFormComponent implements OnInit {
   loadTrack(id: number): void {
     this.trackService.findById(id).subscribe({
       next: (track: Track) => {
-        this.trackForm.patchValue({
-          title: track.title,
-          durationSeconds: track.durationSeconds,
-          yearReleased: track.yearReleased,
-          beatsPerMinute: track.beatsPerMinute,
-          artists: Array.of(track.artists)
-        });
+        this.patchFormFromTrack(track);
+        // this.trackForm.patchValue({
+        //   title: track.title,
+        //   durationSeconds: track.durationSeconds,
+        //   yearReleased: track.yearReleased,
+        //   beatsPerMinute: track.beatsPerMinute,
+        //   artists: track.artists
+        // });
         this.registeredArtist = track.artists || [];
         },
       error: () => this.errorMessage = 'Error loading track'
+    });
+  }
+
+  patchFormFromTrack(track: Track): void {
+    const selectedArtists = track.artists.map(artist => {
+      return this.allArtists.find(a => a.id === artist.id)
+    }).filter(Boolean) as Artist[];
+
+    this.trackForm.patchValue({
+      title: track.title,
+      durationSeconds: track.durationSeconds,
+      yearReleased: track.yearReleased,
+      beatsPerMinute: track.beatsPerMinute,
+      artists: selectedArtists
     });
   }
 
@@ -87,7 +102,7 @@ export class TrackFormComponent implements OnInit {
       durationSeconds: formValues.durationSeconds,
       yearReleased: formValues.yearReleased,
       beatsPerMinute: formValues.beatsPerMinute,
-      artists: Array.of(formValues.artists),
+      artists: formValues.artists
     };
 
     if (this.isEditMode && this.trackId != null) {
