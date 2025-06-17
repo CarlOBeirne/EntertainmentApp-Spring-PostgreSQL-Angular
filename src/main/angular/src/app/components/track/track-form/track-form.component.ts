@@ -23,7 +23,6 @@ export class TrackFormComponent implements OnInit {
   artistType = ArtistType;
   artistTypeEnumKeys = Object.keys(this.artistType) as Array<keyof typeof ArtistType>;
 
-
   constructor(
     private formBuilder: FormBuilder,
     private trackService: TrackService,
@@ -43,7 +42,7 @@ export class TrackFormComponent implements OnInit {
       durationSeconds: ['', [Validators.required, Validators.min(1)]],
       yearReleased: ['', [Validators.required]],
       beatsPerMinute: ['', [Validators.required, Validators.min(1)]],
-      artists: [[], [Validators.required]],
+      artists: [[null], [Validators.required]],
     });
 
     // Check if route has an id
@@ -68,7 +67,7 @@ export class TrackFormComponent implements OnInit {
           durationSeconds: track.durationSeconds,
           yearReleased: track.yearReleased,
           beatsPerMinute: track.beatsPerMinute,
-          artists: track.artists
+          artists: Array.of(track.artists)
         });
         this.registeredArtist = track.artists || [];
         },
@@ -78,10 +77,9 @@ export class TrackFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.trackForm.invalid) {
+      console.log("dfdfd")
       return;
     }
-
-    // const selectedArtist: Artist[] = Array.of(this.trackForm.value.artists);
 
     const formValues = this.trackForm.value;
     const trackData: Track = {
@@ -89,7 +87,7 @@ export class TrackFormComponent implements OnInit {
       durationSeconds: formValues.durationSeconds,
       yearReleased: formValues.yearReleased,
       beatsPerMinute: formValues.beatsPerMinute,
-      artists: formValues.artists.name,
+      artists: Array.of(formValues.artists),
     };
 
     if (this.isEditMode && this.trackId != null) {

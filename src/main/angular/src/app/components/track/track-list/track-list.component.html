@@ -1,19 +1,26 @@
-<div class="container">
-  <h2>Tracks</h2>
-  <!-- <button (click)="addCourse()" class="btn btn-primary mb-3">
-    Add New Course
-  </button> -->
+<div class="container-fluid mt-2">
+  <div class="row mb-1">
+    <div class="col col-md-2">
+      <h2>Track List</h2>
+    </div>
+    <div class="col col-md-2">
+      <button class="btn btn-secondary" (click)="addTrack()">New Track</button>
+    </div>
+<!--    <div class="col col-md-3 ml-auto">-->
+<!--      <input class="form-control co-md-3" type="search" [(ngModel)]="searchArtist" placeholder="Search">-->
+<!--    </div>-->
+  </div>
 
   <table class="table table-striped">
     <thead>
-    <tr>
-      <th>Title</th>
-      <th>Duration</th>
-      <th>Year Released</th>
-      <th>Beats Per Minute</th>
-      <th>Artists</th>
-      <th>Actions</th>
-    </tr>
+      <tr>
+        <th>Title</th>
+        <th>Duration</th>
+        <th>Year Released</th>
+        <th>Beats Per Minute</th>
+        <th>Artists</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
     <tr *ngFor="let track of tracks; trackBy: trackByTrackId">
@@ -23,12 +30,8 @@
       <td>{{ track.beatsPerMinute }}</td>
       <td>{{ getArtistNames(track.artists) }}</td>
       <td>
-        <button (click)="editTrack(track)" class="btn btn-sm btn-info me-2">
-          Edit
-        </button>
-        <button (click)="deleteTrack(track)" class="btn btn-sm btn-danger">
-          Delete
-        </button>
+        <button (click)="editTrack(track)" class="btn btn-sm btn-info me-2">Edit</button>
+        <button (click)="deleteTrack(track)" class="btn btn-sm btn-danger">Delete</button>
       </td>
     </tr>
     </tbody>
