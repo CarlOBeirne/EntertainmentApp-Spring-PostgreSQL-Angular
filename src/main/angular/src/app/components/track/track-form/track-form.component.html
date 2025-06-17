@@ -1,14 +1,20 @@
-<div class="container-fluid mt-2">
+<div class="container-fluid">
   <h2> {{ isEditMode ? 'Update Track' : 'New Track' }} </h2>
   <form class="form-group" [formGroup]="trackForm" (ngSubmit)="onSubmit()">
     <div class="form-row mb-3">
       <div class="col col-md-4">
         <label for="title" class="form-label">Track Name</label>
         <input id="title" type="text" class="form-control" formControlName="title">
+        <div *ngIf="trackForm.get('title')?.touched && trackForm.get('title')?.invalid">
+          <small class="text-danger">Title cannot be blank</small>
+        </div>
       </div>
       <div class="col col-md-4">
         <label for="durationSeconds" class="form-label">Duration</label>
         <input id="durationSeconds" type="text" class="form-control" formControlName="durationSeconds">
+        <div *ngIf="trackForm.get('durationSeconds')?.touched && trackForm.get('durationSeconds')?.invalid">
+          <small class="text-danger">Duration cannot be blank</small>
+        </div>
       </div>
     </div>
     <div class="form-row mb-3">
@@ -30,20 +36,21 @@
         </div>
       </div>
     </div>
-<!--    <div class="form-row mb-3">-->
-<!--      <div class="col col-md-4">-->
-<!--        <label for="artists" class="form-label">Artists</label>-->
-<!--        <select id="artists" class="form-control" formControlName="artists">-->
-<!--          <option [ngValue]="null">&#45;&#45; Choose Artists &#45;&#45;</option>-->
-<!--          <option *ngFor="let artist of allArtists" [ngValue]="artist"> {{ artist.name }}</option>-->
-<!--        </select>-->
-<!--        <div *ngIf="trackForm.get('artist')?.touched && trackForm.get('artist')?.invalid">-->
-<!--          <small class="text-danger">Invalid selection</small>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <button type="submit" class="btn btn-success mr-2" [disabled]="trackForm.invalid">Submit</button>-->
-<!--    <button class="btn btn-danger me-2">Cancel</button>-->
+        <div class="form-row mb-3">
+          <div class="col col-md-4">
+            <label for="artists" class="form-label">Artists</label>
+            <select id="artists" class="form-control" formControlName="artists">
+<!--              <option [ngValue]="[]">&#45;&#45; Choose Artists &#45;&#45;</option>-->
+              <option *ngFor="let artist of trackForm.get('artists')?.value" [ngValue]="artist">{{artist.name}}</option>
+<!--              <option *ngFor="let artist of allArtists" [ngValue]="artist"> {{ artist.name }}</option>-->
+            </select>
+            <div *ngIf="trackForm.get('artist')?.touched && trackForm.get('artist')?.invalid">
+              <small class="text-danger">Invalid selection</small>
+            </div>
+          </div>
+        </div>
+    <button type="submit" class="btn btn-success mr-2">Submit</button>
+    <button class="btn btn-danger me-2">Cancel</button>
   </form>
   <div *ngIf="errorMessage">
     <small class="text-danger">{{ errorMessage }}</small>

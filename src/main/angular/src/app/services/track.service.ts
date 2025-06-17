@@ -24,7 +24,7 @@ export class TrackService {
 
   // POST TRACK
   create(track: Track): Observable<Track> {
-    return this.http.post<Track>(this.baseUrl, track);
+    return this.http.post<Track>(`${this.baseUrl}/new`, track);
   }
 
   // PUT TRACK
