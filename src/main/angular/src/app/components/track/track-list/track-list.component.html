@@ -12,6 +12,7 @@
       <th>Year Released</th>
       <th>Beats Per Minute</th>
       <th>Artists</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -20,7 +21,7 @@
       <td>{{ track.durationSeconds }}</td>
       <td>{{ track.yearReleased }}</td>
       <td>{{ track.beatsPerMinute }}</td>
-<!--      <td>{{ getArtistNames(track.artists) }}</td>-->
+      <td>{{ getArtistNames(track.artists) }}</td>
       <td>
         <button (click)="editTrack(track)" class="btn btn-sm btn-info me-2">
           Edit

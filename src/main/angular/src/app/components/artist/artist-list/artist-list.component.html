@@ -1,5 +1,15 @@
 <div class="container-fluid mt-2">
-  <h2>Artist List</h2>
+  <div class="row mb-1">
+    <div class="col col-md-2">
+      <h2>Artist List</h2>
+    </div>
+    <div class="col col-md-2">
+      <button class="btn btn-secondary" (click)="createArtist()">New Artist</button>
+    </div>
+    <div class="col col-md-3 ml-auto">
+      <input class="form-control co-md-3" type="search" [(ngModel)]="searchArtist" placeholder="Search">
+    </div>
+  </div>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -11,17 +21,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let artist of artistList">
+      <tr *ngFor="let artist of artistList | search: searchArtist" >
         <td>{{artist.name}}</td>
         <td>{{getArtistType(artist.artistType)}}</td>
         <td>{{artist.nationality}}</td>
         <td>{{artist.yearFounded}}</td>
         <td>
-          <button class="btn btn-secondary btn-sm mr-2" (click)="updateArtist(artist)">Edit</button>
+          <button class="btn btn-info btn-sm mr-2" (click)="viewTracks(artist)">View Tracks</button>
+          <button class="btn btn-warning btn-sm mr-2" (click)="updateArtist(artist)">Edit</button>
           <button class="btn btn-danger btn-sm mr-2" (click)="deleteArtist(artist)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
-  <button class="btn btn-secondary" (click)="createArtist()">New Artist</button>
 </div>

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Track} from 'src/app/models/track';
 import {TrackService} from 'src/app/services/track.service';
-import {Router} from "@angular/router";
-import {map, Observable, of} from "rxjs";
+import {ActivatedRoute, Router} from "@angular/router";
+import {map} from "rxjs";
 import {Artist} from "../../../models/artist";
 
 
@@ -14,12 +14,37 @@ import {Artist} from "../../../models/artist";
 export class TrackListComponent implements OnInit {
   tracks: Track[] = [];
   errorMessage = '';
+  artistId?: number;
 
-  constructor(private trackService: TrackService, private router: Router) {
+  constructor(private trackService: TrackService,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    this.loadTracks();
+    this.route.paramMap.subscribe((params) => {
+      let artistId = params.get('artistId');
+      if (artistId) {
+        this.artistId = +artistId;
+        this.loadArtistTracks(this.artistId);
+      } else {
+        this.loadTracks();
+      }
+    });
+  }
+
+  loadArtistTracks(artistId: number): void {
+    this.trackService.findAll()
+      .pipe(
+        map(tracks => {
+          return tracks.filter(track => {
+             return track.artists.some(artist => artist.id === artistId);
+          })
+        })
+      )
+      .subscribe({
+        next: (t) => this.tracks = t
+      })
   }
 
   loadTracks(): void {
@@ -53,8 +78,8 @@ export class TrackListComponent implements OnInit {
     return track.id ? track.id : index
   }
 
-  getArtistNames(artists: Set<Artist>): string {
-    if (!artists || artists.size === 0) {
+  getArtistNames(artists: Artist[]): string {
+    if (!artists || artists.length === 0) {
       return '';
     }
     return Array.from(artists).map(artist => artist.name).join(', ');
