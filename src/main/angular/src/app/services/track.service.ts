@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Track } from '../models/track';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Track} from '../models/track';
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -35,5 +35,15 @@ export class TrackService {
   // DELETE TRACK
   delete(id: number | undefined): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  }
+
+  // Add artist
+  addArtist(trackId: number, artistId: number): Observable<Track> {
+    return this.http.post<Track>(`${this.baseUrl}/${trackId}/add-artist/${artistId}`, {});
+  }
+
+  // Remove artist
+  removeArtist(trackId: number, artistId: number): Observable<Track> {
+    return this.http.post<Track>(`${this.baseUrl}/${trackId}/remove-artist/${artistId}`, {});
   }
 }
