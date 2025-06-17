@@ -13,6 +13,7 @@ export class ArtistListComponent implements OnInit {
   artistList: Artist[] = [];
   errorMessage: string = '';
   artistType = ArtistType;
+  searchArtist: string = '';
 
   constructor(private artistService: ArtistService,
               private router: Router) {  }
@@ -30,6 +31,10 @@ export class ArtistListComponent implements OnInit {
 
   updateArtist(artist: Artist): void {
     this.router.navigate([`/artist/update/${artist.id}`]);
+  }
+
+  viewTracks(artist: Artist): void {
+    this.router.navigate([`/artist/${artist.id}/tracks`]);
   }
 
   deleteArtist(artist: Artist): void {
