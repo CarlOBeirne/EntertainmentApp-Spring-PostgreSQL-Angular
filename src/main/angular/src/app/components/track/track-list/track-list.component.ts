@@ -15,6 +15,7 @@ export class TrackListComponent implements OnInit {
   tracks: Track[] = [];
   errorMessage = '';
   artistId?: number;
+  searchTrack: string = '';
 
   constructor(private trackService: TrackService,
               private route: ActivatedRoute,
@@ -74,14 +75,11 @@ export class TrackListComponent implements OnInit {
     }
   }
 
-  trackByTrackId(index: number, track: Track): number {
-    return track.id ? track.id : index
-  }
-
   getArtistNames(artists: Artist[]): string {
     if (!artists || artists.length === 0) {
       return '';
     }
     return Array.from(artists).map(artist => artist.name).join(', ');
   }
+
 }

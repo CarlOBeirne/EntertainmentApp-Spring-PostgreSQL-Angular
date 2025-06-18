@@ -6,11 +6,10 @@
     <div class="col col-md-2">
       <button class="btn btn-secondary" (click)="addTrack()">New Track</button>
     </div>
-<!--    <div class="col col-md-3 ml-auto">-->
-<!--      <input class="form-control co-md-3" type="search" [(ngModel)]="searchArtist" placeholder="Search">-->
-<!--    </div>-->
+    <div class="col col-md-3 ml-auto">
+      <input class="form-control co-md-3" type="search" [(ngModel)]="searchTrack" placeholder="Search">
+    </div>
   </div>
-
   <table class="table table-striped">
     <thead>
       <tr>
@@ -23,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let track of tracks; trackBy: trackByTrackId">
+    <tr *ngFor="let track of tracks | search: searchTrack">
       <td>{{ track.title }}</td>
       <td>{{ track.durationSeconds }}</td>
       <td>{{ track.yearReleased }}</td>

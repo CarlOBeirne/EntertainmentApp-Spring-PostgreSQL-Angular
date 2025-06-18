@@ -44,7 +44,7 @@ export class ArtistListComponent implements OnInit {
     if (confirm(`Are you sure you want to delete artist ${artist.name}`)) {
       this.artistService.deleteArtist(artist.id).subscribe({
         next: () => this.loadArtists(),
-        error: (err) => this.errorMessage = 'Error deleting artist'
+        error: () => this.errorMessage = 'Error deleting artist'
       })
     }
   }

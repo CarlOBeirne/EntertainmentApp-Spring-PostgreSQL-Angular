@@ -11,8 +11,9 @@ const routes: Routes = [
   {path: 'artist/update/:id', component: ArtistFormComponent},
   {path: 'artist/:artistId/tracks', component: TrackListComponent},
   {path: 'track/new', component: TrackFormComponent},
-  {path: 'track/update/:id', component: TrackFormComponent},
   {path: 'track/all', component: TrackListComponent},
+  {path: 'track/update/:id', component: TrackFormComponent},
+  {path: 'track/:trackId/artists', component: ArtistListComponent},
   {path: '', redirectTo: '/', pathMatch: 'full'},
   {path: '**', redirectTo: '/'}
 ];
