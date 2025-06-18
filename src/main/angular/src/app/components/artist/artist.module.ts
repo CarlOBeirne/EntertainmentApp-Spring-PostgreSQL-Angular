@@ -7,10 +7,10 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 import {SearchPipe} from './search.pipe';
 
 
+
 @NgModule({
   declarations: [
     ArtistFormComponent,
-    ArtistListComponent,
     SearchPipe
   ],
   exports: [

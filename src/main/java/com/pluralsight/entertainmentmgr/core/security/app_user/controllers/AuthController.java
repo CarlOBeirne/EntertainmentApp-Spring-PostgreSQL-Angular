@@ -9,6 +9,8 @@ import com.pluralsight.entertainmentmgr.core.security.permission.entities.Permis
 import com.pluralsight.entertainmentmgr.core.security.permission.repositories.PermissionRepository;
 import com.pluralsight.entertainmentmgr.core.security.role.entities.Role;
 import com.pluralsight.entertainmentmgr.core.security.role.repositories.RoleRepository;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.NonNull;
@@ -60,10 +62,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<String> login(@Valid @RequestBody LoginRequest request, HttpServletResponse response) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         String token = jwtUtil.generateToken(request.getUsername());
-        return ResponseEntity.ok(token);
+
+        Cookie cookie = new Cookie("token", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false);
+        cookie.setPath("/");
+        cookie.setMaxAge(3600);
+        response.addCookie(cookie);
+        return ResponseEntity.ok("Success");
     }
 
     @PostMapping("/{id}/roles/add")

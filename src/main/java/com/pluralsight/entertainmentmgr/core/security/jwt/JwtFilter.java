@@ -5,6 +5,7 @@ import com.pluralsight.entertainmentmgr.core.security.permission.entities.Permis
 import io.micrometer.common.lang.NonNullApi;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,16 +30,26 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws IOException, ServletException {
+        String token = null;
+        String username;
 
         final String authHeader = request.getHeader("Authorization");
-        final String token;
-        final String username;
-
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7);
+        } else {
+            if (request.getCookies() != null) {
+                for (Cookie cookie : request.getCookies()) {
+                    if ("token".equals(cookie.getName())) {
+                        token = cookie.getValue();
+                        break;
+                    }
+                }
+            }
+        }
+        if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
-        token = authHeader.substring(7);
         username = jwtUtil.extractUsername(token);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = appUserRepository.findByUsername(username)
@@ -56,7 +67,8 @@ public class JwtFilter extends OncePerRequestFilter {
                                 .withUsername(user.getUsername())
                                 .password(user.getPassword())
                                 .authorities(authorities.toArray(String[]::new))
-                                .build();})
+                                .build();
+                    })
                     .orElse(null);
             if (userDetails != null && jwtUtil.validateToken(token)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,

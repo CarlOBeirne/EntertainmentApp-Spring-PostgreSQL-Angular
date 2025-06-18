@@ -82,6 +82,7 @@ public class ArtistController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(path = "/all")
     public ResponseEntity<List<ArtistDto>> getAllArtists() {
         try {

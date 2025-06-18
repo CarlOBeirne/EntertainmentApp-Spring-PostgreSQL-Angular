@@ -4,8 +4,10 @@ import {TrackListComponent} from "./components/track/track-list/track-list.compo
 import {ArtistFormComponent} from "./components/artist/artist-form/artist-form.component";
 import {TrackFormComponent} from "./components/track/track-form/track-form.component";
 import {ArtistListComponent} from "./components/artist/artist-list/artist-list.component";
+import {LoginComponent} from "./components/auth/login/login.component";
 
 const routes: Routes = [
+  {path: 'login', component: LoginComponent},
   {path: 'artist/new', component: ArtistFormComponent},
   {path: 'artist/all', component: ArtistListComponent},
   {path: 'artist/update/:id', component: ArtistFormComponent},
