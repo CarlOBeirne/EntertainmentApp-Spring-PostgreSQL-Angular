@@ -13,6 +13,9 @@ import {SearchPipe} from './search.pipe';
     ArtistListComponent,
     SearchPipe
   ],
+  exports: [
+    SearchPipe
+  ],
   imports: [
     ReactiveFormsModule,
     CommonModule,
