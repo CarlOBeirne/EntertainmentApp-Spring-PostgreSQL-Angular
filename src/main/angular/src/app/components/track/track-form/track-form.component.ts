@@ -21,7 +21,6 @@ export class TrackFormComponent implements OnInit {
   allArtists: Artist[] = [];
   registeredArtist: Artist[] = [];
   artistType = ArtistType;
-  artistTypeEnumKeys = Object.keys(this.artistType) as Array<keyof typeof ArtistType>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,13 +62,6 @@ export class TrackFormComponent implements OnInit {
     this.trackService.findById(id).subscribe({
       next: (track: Track) => {
         this.patchFormFromTrack(track);
-        // this.trackForm.patchValue({
-        //   title: track.title,
-        //   durationSeconds: track.durationSeconds,
-        //   yearReleased: track.yearReleased,
-        //   beatsPerMinute: track.beatsPerMinute,
-        //   artists: track.artists
-        // });
         this.registeredArtist = track.artists || [];
         },
       error: () => this.errorMessage = 'Error loading track'
@@ -92,7 +84,6 @@ export class TrackFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.trackForm.invalid) {
-      console.log("dfdfd")
       return;
     }
 
@@ -125,29 +116,29 @@ export class TrackFormComponent implements OnInit {
     this.router.navigate(['track/all']);
   }
 
-  // Add an artist to a track
-  addArtist(artistId: number): void {
-    if(!this.trackId) return;
-    this.trackService.addArtist(this.trackId, artistId).subscribe({
-      next: (updatedTrack) => {
-        this.registeredArtist = updatedTrack.artists || [];
-      },
-      error: () => this.errorMessage = 'Error adding artist'
-    });
-  }
-
-  // Remove an artist from a track
-  removeArtist(artistId: number): void {
-    if(!this.trackId) return;
-    this.trackService.removeArtist(this.trackId, artistId).subscribe({
-      next: (updatedTrack) => {
-      this.registeredArtist = updatedTrack.artists || [];
-    },
-      error: () => this.errorMessage = 'Error removing artist'
-    });
-  }
-
-  isRegistered(artist: Artist): boolean {
-    return this.registeredArtist.some(s => s.id === artist.id);
-  }
+  // // Add an artist to a track
+  // addArtist(artistId: number): void {
+  //   if(!this.trackId) return;
+  //   this.trackService.addArtist(this.trackId, artistId).subscribe({
+  //     next: (updatedTrack) => {
+  //       this.registeredArtist = updatedTrack.artists || [];
+  //     },
+  //     error: () => this.errorMessage = 'Error adding artist'
+  //   });
+  // }
+  //
+  // // Remove an artist from a track
+  // removeArtist(artistId: number): void {
+  //   if(!this.trackId) return;
+  //   this.trackService.removeArtist(this.trackId, artistId).subscribe({
+  //     next: (updatedTrack) => {
+  //     this.registeredArtist = updatedTrack.artists || [];
+  //   },
+  //     error: () => this.errorMessage = 'Error removing artist'
+  //   });
+  // }
+  //
+  // isRegistered(artist: Artist): boolean {
+  //   return this.registeredArtist.some(s => s.id === artist.id);
+  // }
 }
