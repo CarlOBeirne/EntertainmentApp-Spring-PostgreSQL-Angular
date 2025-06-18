@@ -8,12 +8,12 @@ import {ArtistListComponent} from "./components/artist/artist-list/artist-list.c
 const routes: Routes = [
   {path: 'artist/new', component: ArtistFormComponent},
   {path: 'artist/all', component: ArtistListComponent},
+  {path: 'artist/all/:id', component: ArtistListComponent},
   {path: 'artist/update/:id', component: ArtistFormComponent},
   {path: 'artist/:artistId/tracks', component: TrackListComponent},
   {path: 'track/new', component: TrackFormComponent},
   {path: 'track/all', component: TrackListComponent},
   {path: 'track/update/:id', component: TrackFormComponent},
-  {path: 'track/:trackId/artists', component: ArtistListComponent},
   {path: '', redirectTo: '/', pathMatch: 'full'},
   {path: '**', redirectTo: '/'}
 ];

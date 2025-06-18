@@ -29,8 +29,11 @@
       <td>{{ track.beatsPerMinute }}</td>
       <td>{{ getArtistNames(track.artists) }}</td>
       <td>
-        <button (click)="editTrack(track)" class="btn btn-sm btn-info me-2">Edit</button>
-        <button (click)="deleteTrack(track)" class="btn btn-sm btn-danger">Delete</button>
+        <button class="btn btn-info btn-sm mr-2" (click)="viewArtistDetails(track.id)">
+          View Artist
+        </button>
+        <button (click)="editTrack(track)" class="btn btn-warning btn-sm mr-2">Edit</button>
+        <button (click)="deleteTrack(track)" class="btn btn-danger btn-sm mr-2">Delete</button>
       </td>
     </tr>
     </tbody>

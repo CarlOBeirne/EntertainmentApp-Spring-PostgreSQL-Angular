@@ -5,7 +5,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {map} from "rxjs";
 import {Artist} from "../../../models/artist";
 
-
 @Component({
   selector: 'app-track-list',
   templateUrl: './track-list.component.html',
@@ -16,6 +15,7 @@ export class TrackListComponent implements OnInit {
   errorMessage = '';
   artistId?: number;
   searchTrack: string = '';
+  selectedArtistId: number | null = null;
 
   constructor(private trackService: TrackService,
               private route: ActivatedRoute,
@@ -51,7 +51,7 @@ export class TrackListComponent implements OnInit {
   loadTracks(): void {
     this.trackService.findAll().subscribe({
       next: (tracks) => (this.tracks = tracks),
-      error: (err) => (this.errorMessage = `${err}`), // I think this allows the exact backend message to be displayed.
+      error: (err) => (this.errorMessage = `${err}`),
     })
   }
 
@@ -80,6 +80,10 @@ export class TrackListComponent implements OnInit {
       return '';
     }
     return Array.from(artists).map(artist => artist.name).join(', ');
+  }
+
+  public viewArtistDetails(trackId: number): void {
+    this.router.navigate(['/artist/all/', trackId]);
   }
 
 }

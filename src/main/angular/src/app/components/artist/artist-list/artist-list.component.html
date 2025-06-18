@@ -1,37 +1,49 @@
 <div class="container-fluid mt-2">
   <div class="row mb-1">
+
     <div class="col col-md-2">
       <h2>Artist List</h2>
     </div>
-    <div class="col col-md-2">
+
+    <div class="col col-md-2" *ngIf="!isFilteredByTrack">
       <button class="btn btn-secondary" (click)="createArtist()">New Artist</button>
     </div>
+
     <div class="col col-md-3 ml-auto">
       <input class="form-control co-md-3" type="search" [(ngModel)]="searchArtist" placeholder="Search">
     </div>
   </div>
+
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th scope="col">Artist Name</th>
-        <th scope="col">Artist Type</th>
-        <th scope="col">Nationality</th>
-        <th scope="col">Founded</th>
-        <th scope="col">Actions</th>
-      </tr>
+    <tr>
+      <th scope="col">Artist Name</th>
+      <th scope="col">Artist Type</th>
+      <th scope="col">Nationality</th>
+      <th scope="col">Founded</th>
+      <th scope="col">Actions</th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let artist of artistList | search: searchArtist" >
-        <td>{{artist.name}}</td>
-        <td>{{getArtistType(artist.artistType)}}</td>
-        <td>{{artist.nationality}}</td>
-        <td>{{artist.yearFounded}}</td>
-        <td>
-          <button class="btn btn-info btn-sm mr-2" (click)="viewTracks(artist)">View Tracks</button>
-          <button class="btn btn-warning btn-sm mr-2" (click)="updateArtist(artist)">Edit</button>
-          <button class="btn btn-danger btn-sm mr-2" (click)="deleteArtist(artist)">Delete</button>
-        </td>
-      </tr>
+    <tr *ngFor="let artist of filteredArtists | search: searchArtist" >
+      <td>{{artist.name}}</td>
+      <td>{{getArtistType(artist.artistType)}}</td>
+      <td>{{artist.nationality}}</td>
+      <td>{{artist.yearFounded}}</td>
+      <td>
+        <button class="btn btn-info btn-sm mr-2" (click)="viewTracks(artist)">View Tracks</button>
+        <button class="btn btn-warning btn-sm mr-2" (click)="updateArtist(artist)">Edit</button>
+        <button class="btn btn-danger btn-sm mr-2" (click)="deleteArtist(artist)">Delete</button>
+      </td>
+    </tr>
     </tbody>
   </table>
+
+  <p *ngIf="filteredArtists.length === 0 && !searchArtist" class="alert alert-warning mt-3">
+    <span *ngIf="isFilteredByTrack">No artists found for this track.</span>
+    <span *ngIf="!isFilteredByTrack">No artists available.</span>
+  </p>
+  <p *ngIf="filteredArtists.length === 0 && searchArtist" class="alert alert-warning mt-3">
+    No artists match your search.
+  </p>
 </div>
