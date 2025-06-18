@@ -4,7 +4,6 @@ import {ArtistFormComponent} from "./artist-form/artist-form.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ArtistListComponent} from "./artist-list/artist-list.component";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import { ArtistTracksListComponent } from './artist-tracks-list/artist-tracks-list.component';
 import { SearchPipe } from './search.pipe';
 
 
@@ -12,7 +11,6 @@ import { SearchPipe } from './search.pipe';
   declarations: [
     ArtistFormComponent,
     ArtistListComponent,
-    ArtistTracksListComponent,
     SearchPipe
   ],
   imports: [

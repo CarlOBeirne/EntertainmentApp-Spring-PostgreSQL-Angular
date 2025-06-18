@@ -1,0 +1,16 @@
+<div class="container-fluid mx-auto" style="width: 35%; margin-top: 100px">
+  <div>
+    <form class="form-group" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h2 class="form-row">Login</h2>
+      <div class="form-row mt-3">
+        <input id="username" class="form-control" type="text" placeholder="Username" formControlName="username">
+      </div>
+      <div class="form-row mt-3">
+        <input id="password" class="form-control" type="password" placeholder="Password" formControlName="password">
+      </div>
+      <div class="form-row mt-3">
+        <button class="btn btn-success" [disabled]="loginForm.invalid">Log In</button>
+      </div>
+    </form>
+  </div>
+</div>

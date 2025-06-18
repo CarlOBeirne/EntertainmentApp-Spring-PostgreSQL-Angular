@@ -39,9 +39,12 @@ export class ArtistFormComponent implements OnInit {
     );
   }
 
+  cancel(): void {
+    this.router.navigate(['/artist/all']);
+  }
+
   onSubmit(): void {
     if (this.artistForm.invalid) {
-      console.log("Here")
       return;
     }
     const artist: Artist = {
