@@ -4,8 +4,8 @@ import {TrackService} from "../../../services/track.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Track} from "../../../models/track";
 import {ArtistService} from "../../../services/artist.service";
-import {Observable} from "rxjs";
 import {Artist} from "../../../models/artist";
+import {ArtistType} from "../../../models/artist-type";
 
 @Component({
   selector: 'app-track-form',
@@ -18,8 +18,9 @@ export class TrackFormComponent implements OnInit {
   trackId?: number;
   errorMessage = '';
   years: number[] = [];
-  allArtists: Observable<Artist[]> | undefined;
-
+  allArtists: Artist[] = [];
+  registeredArtist: Artist[] = [];
+  artistType = ArtistType;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,7 +31,10 @@ export class TrackFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.allArtists = this.artistService.findAllArtists();
+    this.artistService.findAllArtists().subscribe({
+      next: (artists) => this.allArtists = artists,
+      error: () => this.errorMessage = 'Error loading artists'
+    });
 
     this.trackForm = this.formBuilder.group({
       title: ['', [Validators.required]],
@@ -57,15 +61,24 @@ export class TrackFormComponent implements OnInit {
   loadTrack(id: number): void {
     this.trackService.findById(id).subscribe({
       next: (track: Track) => {
-        this.trackForm.patchValue({
-          title: track.title,
-          durationSeconds: track.durationSeconds,
-          yearReleased: track.yearReleased,
-          beatsPerMinute: track.beatsPerMinute,
-          artists: track.artists.map(artist => artist.name)
-        });
+        this.patchFormFromTrack(track);
+        this.registeredArtist = track.artists || [];
         },
       error: () => this.errorMessage = 'Error loading track'
+    });
+  }
+
+  patchFormFromTrack(track: Track): void {
+    const selectedArtists = track.artists.map(artist => {
+      return this.allArtists.find(a => a.id === artist.id)
+    }).filter(Boolean) as Artist[];
+
+    this.trackForm.patchValue({
+      title: track.title,
+      durationSeconds: track.durationSeconds,
+      yearReleased: track.yearReleased,
+      beatsPerMinute: track.beatsPerMinute,
+      artists: selectedArtists
     });
   }
 
@@ -74,14 +87,13 @@ export class TrackFormComponent implements OnInit {
       return;
     }
 
-    const selectedArtist: Artist[] = Array.of(this.trackForm.value.artists);
-
+    const formValues = this.trackForm.value;
     const trackData: Track = {
-      title: this.trackForm.value.title,
-      durationSeconds: this.trackForm.value.durationSeconds,
-      yearReleased: this.trackForm.value.yearReleased,
-      beatsPerMinute: this.trackForm.value.beatsPerMinute,
-      artists: selectedArtist,
+      title: formValues.title,
+      durationSeconds: formValues.durationSeconds,
+      yearReleased: formValues.yearReleased,
+      beatsPerMinute: formValues.beatsPerMinute,
+      artists: formValues.artists
     };
 
     if (this.isEditMode && this.trackId != null) {
@@ -104,4 +116,29 @@ export class TrackFormComponent implements OnInit {
     this.router.navigate(['track/all']);
   }
 
+  // // Add an artist to a track
+  // addArtist(artistId: number): void {
+  //   if(!this.trackId) return;
+  //   this.trackService.addArtist(this.trackId, artistId).subscribe({
+  //     next: (updatedTrack) => {
+  //       this.registeredArtist = updatedTrack.artists || [];
+  //     },
+  //     error: () => this.errorMessage = 'Error adding artist'
+  //   });
+  // }
+  //
+  // // Remove an artist from a track
+  // removeArtist(artistId: number): void {
+  //   if(!this.trackId) return;
+  //   this.trackService.removeArtist(this.trackId, artistId).subscribe({
+  //     next: (updatedTrack) => {
+  //     this.registeredArtist = updatedTrack.artists || [];
+  //   },
+  //     error: () => this.errorMessage = 'Error removing artist'
+  //   });
+  // }
+  //
+  // isRegistered(artist: Artist): boolean {
+  //   return this.registeredArtist.some(s => s.id === artist.id);
+  // }
 }
