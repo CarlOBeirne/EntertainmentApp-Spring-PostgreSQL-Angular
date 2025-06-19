@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MenuNavComponent} from "./menu-nav/menu-nav.component";
-import {RouterLink} from "@angular/router";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 
 
 
@@ -14,7 +14,8 @@ import {RouterLink} from "@angular/router";
   ],
   imports: [
     CommonModule,
-    RouterLink
+    RouterLink,
+    RouterLinkActive
   ]
 })
 export class MenuModule { }

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth.service";
+import {Credentials} from "../../../models/credentials";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -10,9 +12,10 @@ import {AuthService} from "../../../services/auth.service";
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-  message: string= '';
+  errorMessage: string= '';
 
   constructor(private fb: FormBuilder,
+              private router: Router,
               private authService: AuthService) {
   }
 
@@ -35,16 +38,15 @@ export class LoginComponent implements OnInit {
     this.login(credentials);
   }
 
-  login(credentials: {username: string, password: string}): void {
+  login(credentials: Credentials): void {
     this.authService.login(credentials).subscribe({
       next: () => {
-        this.message = 'Login successful';
+        this.router.navigate(['/']);
       },
-      error: (err) => {
-        this.message= 'Login failed!';
-        console.error(err);
+      error: () => {
+        this.errorMessage= 'Login failed! Please check your credentials and try again.';
       }
-    })
+    });
   }
 
 

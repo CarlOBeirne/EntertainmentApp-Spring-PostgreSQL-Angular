@@ -5,9 +5,12 @@ import {ArtistFormComponent} from "./components/artist/artist-form/artist-form.c
 import {TrackFormComponent} from "./components/track/track-form/track-form.component";
 import {ArtistListComponent} from "./components/artist/artist-list/artist-list.component";
 import {LoginComponent} from "./components/auth/login/login.component";
+import {RegistrationComponent} from "./components/auth/registration/registration.component";
+import {HomeComponent} from "./components/home/home.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegistrationComponent},
   {path: 'artist/new', component: ArtistFormComponent},
   {path: 'artist/all', component: ArtistListComponent},
   {path: 'artist/all/:id', component: ArtistListComponent},
@@ -16,6 +19,7 @@ const routes: Routes = [
   {path: 'track/new', component: TrackFormComponent},
   {path: 'track/all', component: TrackListComponent},
   {path: 'track/update/:id', component: TrackFormComponent},
+  {path: '', component: HomeComponent},
   {path: '', redirectTo: '/', pathMatch: 'full'},
   {path: '**', redirectTo: '/'}
 ];
