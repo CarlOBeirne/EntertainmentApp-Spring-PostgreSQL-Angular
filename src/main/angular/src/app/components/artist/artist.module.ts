@@ -11,6 +11,7 @@ import {SearchPipe} from './search.pipe';
 @NgModule({
   declarations: [
     ArtistFormComponent,
+    ArtistListComponent,
     SearchPipe
   ],
   exports: [
