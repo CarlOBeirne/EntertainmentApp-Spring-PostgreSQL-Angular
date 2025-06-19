@@ -64,4 +64,8 @@ export class GenreFormComponent implements OnInit {
       });
     }
   }
+
+  cancel(): void {
+    this.router.navigate(['/genre/all']);
+  }
 }
