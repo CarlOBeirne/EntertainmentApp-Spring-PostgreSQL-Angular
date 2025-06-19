@@ -17,6 +17,7 @@
         <th>Duration</th>
         <th>Year Released</th>
         <th>Beats Per Minute</th>
+        <th>Genre</th>
         <th>Artists</th>
         <th>Actions</th>
       </tr>
@@ -27,6 +28,7 @@
       <td>{{ track.durationSeconds }}</td>
       <td>{{ track.yearReleased }}</td>
       <td>{{ track.beatsPerMinute }}</td>
+      <td>{{ track.genre.name }}</td>
       <td>{{ getArtistNames(track.artists) }}</td>
       <td>
         <button class="btn btn-info btn-sm mr-2" (click)="viewArtistDetails(track.id)">

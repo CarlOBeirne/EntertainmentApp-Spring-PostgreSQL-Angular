@@ -8,8 +8,8 @@ import {TrackModule} from './components/track/track.module';
 import {HttpClientModule} from '@angular/common/http';
 import {ArtistModule} from "./components/artist/artist.module";
 import {AuthModule} from "./components/auth/auth.module";
-import { HomeComponent } from './components/home/home.component';
 import {HomeModule} from "./components/home/home.module";
+import {GenreModule} from "./components/genre/genre.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +21,8 @@ import {HomeModule} from "./components/home/home.module";
     TrackModule,
     ArtistModule,
     AuthModule,
-    HomeModule
+    HomeModule,
+    GenreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

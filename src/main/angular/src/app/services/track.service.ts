@@ -36,14 +36,14 @@ export class TrackService {
   delete(id: number | undefined): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
-
-  // Add artist
-  addArtist(trackId: number, artistId: number): Observable<Track> {
-    return this.http.post<Track>(`${this.baseUrl}/${trackId}/add-artist/${artistId}`, {});
-  }
-
-  // Remove artist
-  removeArtist(trackId: number, artistId: number): Observable<Track> {
-    return this.http.post<Track>(`${this.baseUrl}/${trackId}/remove-artist/${artistId}`, {});
-  }
+  //
+  // // Add artist
+  // addArtist(trackId: number, artistId: number): Observable<Track> {
+  //   return this.http.post<Track>(`${this.baseUrl}/${trackId}/add-artist/${artistId}`, {});
+  // }
+  //
+  // // Remove artist
+  // removeArtist(trackId: number, artistId: number): Observable<Track> {
+  //   return this.http.post<Track>(`${this.baseUrl}/${trackId}/remove-artist/${artistId}`, {});
+  // }
 }
