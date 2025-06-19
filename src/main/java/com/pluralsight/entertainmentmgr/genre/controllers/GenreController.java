@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/genre")
 @Log4j2
+@CrossOrigin("*")
 public class GenreController {
 
     private final GenreDataService genreDataService;
@@ -60,7 +61,7 @@ public class GenreController {
         }
     }
 
-    @PostMapping(path = "/update/{id}")
+    @PutMapping(path = "/update/{id}")
     public ResponseEntity<GenreDto> updateGenre(@PathVariable Long id, @RequestBody GenreDto genreDto) {
         try {
             Optional<GenreDto> genre = genreDataService.findGenreById(id);

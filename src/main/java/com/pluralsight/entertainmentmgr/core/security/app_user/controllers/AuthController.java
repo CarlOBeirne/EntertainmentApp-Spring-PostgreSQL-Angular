@@ -33,6 +33,7 @@ import java.util.Set;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @Log4j2
+@CrossOrigin("*")
 public class AuthController {
 
     private final AppUserRepository appUserRepository;

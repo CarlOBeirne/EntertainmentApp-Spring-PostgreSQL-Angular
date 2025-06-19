@@ -36,18 +36,28 @@
         </div>
       </div>
     </div>
-        <div class="form-row mb-3">
-          <div class="col col-md-4">
-            <label for="artists" class="form-label">Artists</label>
-            <select id="artists" class="form-control" formControlName="artists" multiple>
-              <option [ngValue]="[]">-- Choose Artists --</option>
-              <option *ngFor="let artist of allArtists" [ngValue]="artist"> {{ artist.name }}</option>
-            </select>
-            <div *ngIf="trackForm.get('artist')?.touched && trackForm.get('artist')?.invalid">
-              <small class="text-danger">Invalid selection</small>
-            </div>
-          </div>
+    <div class="form-row mb-3">
+      <div class="col col-md-4">
+        <label for="genre" class="form-label">Genre</label>
+        <select id="genre" class="form-control" formControlName="genre">
+          <option [ngValue]="[]">-- Choose Genre --</option>
+          <option *ngFor="let genre of allGenres" [ngValue]="genre"> {{ genre.name }}</option>
+        </select>
+        <div *ngIf="trackForm.get('genre')?.touched && trackForm.get('genre')?.invalid">
+          <small class="text-danger">Genre cannot be blank</small>
         </div>
+      </div>
+      <div class="col col-md-4">
+        <label for="artists" class="form-label">Artists</label>
+        <select id="artists" class="form-control" formControlName="artists" multiple>
+          <option [ngValue]="[]">-- Choose Artists --</option>
+          <option *ngFor="let artist of allArtists" [ngValue]="artist"> {{ artist.name }}</option>
+        </select>
+        <div *ngIf="trackForm.get('artist')?.touched && trackForm.get('artist')?.invalid">
+          <small class="text-danger">Invalid selection</small>
+        </div>
+      </div>
+    </div>
     <button type="submit" class="btn btn-success mr-2" [disabled]="trackForm.invalid">Submit</button>
     <button (click)="cancel()" class="btn btn-danger me-2">Cancel</button>
   </form>

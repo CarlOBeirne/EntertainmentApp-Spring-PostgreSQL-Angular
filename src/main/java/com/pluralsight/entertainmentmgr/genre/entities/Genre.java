@@ -28,6 +28,6 @@ public class Genre extends BaseEntity {
 
     private String description;
 
-    @OneToMany(mappedBy = "genre", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.MERGE, orphanRemoval = true)
     private Set<Track> tracks = new HashSet<>();
 }

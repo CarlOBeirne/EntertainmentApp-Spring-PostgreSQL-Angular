@@ -1,0 +1,36 @@
+<div class="container-fluid mt-2">
+  <div class="row mb-1">
+    <div class="col col-md-2">
+      <h2>Genres List</h2>
+    </div>
+    <div class="col col-md-2">
+      <button class="btn btn-secondary" (click)="addGenre()">New Genre</button>
+    </div>
+    <div class="col col-md-3 ml-auto">
+      <input class="form-control co-md-3" type="search" [(ngModel)]="searchGenre" placeholder="Search">
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let genre of genres | search: searchGenre">
+      <td>{{ genre.name }}</td>
+      <td>{{ genre.description }}</td>
+      <td>
+        <button (click)="editGenre(genre)" class="btn btn-warning btn-sm mr-2">Edit</button>
+        <button (click)="deleteGenre(genre)" class="btn btn-danger btn-sm mr-2">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+</div>

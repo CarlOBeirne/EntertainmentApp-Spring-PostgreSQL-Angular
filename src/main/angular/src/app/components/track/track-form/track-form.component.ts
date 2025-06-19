@@ -6,6 +6,8 @@ import {Track} from "../../../models/track";
 import {ArtistService} from "../../../services/artist.service";
 import {Artist} from "../../../models/artist";
 import {ArtistType} from "../../../models/artist-type";
+import {Genre} from "../../../models/genre";
+import {GenreService} from "../../../services/genre.service";
 
 @Component({
   selector: 'app-track-form',
@@ -18,6 +20,7 @@ export class TrackFormComponent implements OnInit {
   trackId?: number;
   errorMessage = '';
   years: number[] = [];
+  allGenres: Genre[] = [];
   allArtists: Artist[] = [];
   registeredArtist: Artist[] = [];
   artistType = ArtistType;
@@ -26,6 +29,7 @@ export class TrackFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private trackService: TrackService,
     private artistService: ArtistService,
+    private genreService: GenreService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -36,11 +40,21 @@ export class TrackFormComponent implements OnInit {
       error: () => this.errorMessage = 'Error loading artists'
     });
 
+    this.genreService.findAll().subscribe({
+      next: (genres) => this.allGenres = genres,
+      error: () => this.errorMessage = 'Error loading genres'
+    });
+
     this.trackForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       durationSeconds: ['', [Validators.required, Validators.min(1)]],
       yearReleased: ['', [Validators.required]],
       beatsPerMinute: ['', [Validators.required, Validators.min(1)]],
+      genre: this.formBuilder.group({
+        id: [null, [Validators.required]],
+        name: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+      }),
       artists: [[], [Validators.required]],
     });
 
@@ -78,6 +92,7 @@ export class TrackFormComponent implements OnInit {
       durationSeconds: track.durationSeconds,
       yearReleased: track.yearReleased,
       beatsPerMinute: track.beatsPerMinute,
+      genre: track.genre,
       artists: selectedArtists
     });
   }
@@ -93,7 +108,8 @@ export class TrackFormComponent implements OnInit {
       durationSeconds: formValues.durationSeconds,
       yearReleased: formValues.yearReleased,
       beatsPerMinute: formValues.beatsPerMinute,
-      artists: formValues.artists
+      genre: formValues.genre,
+      artists: formValues.artists,
     };
 
     if (this.isEditMode && this.trackId != null) {

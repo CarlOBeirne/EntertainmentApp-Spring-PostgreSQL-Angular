@@ -7,10 +7,15 @@ import {ArtistListComponent} from "./components/artist/artist-list/artist-list.c
 import {LoginComponent} from "./components/auth/login/login.component";
 import {RegistrationComponent} from "./components/auth/registration/registration.component";
 import {HomeComponent} from "./components/home/home.component";
+import {GenreListComponent} from "./components/genre/genre-list/genre-list.component";
+import {GenreFormComponent} from "./components/genre/genre-form/genre-form.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
+  {path: 'genre/new', component: GenreFormComponent},
+  {path: 'genre/all', component: GenreListComponent},
+  {path: 'genre/update/:id', component: GenreFormComponent},
   {path: 'artist/new', component: ArtistFormComponent},
   {path: 'artist/all', component: ArtistListComponent},
   {path: 'artist/all/:id', component: ArtistListComponent},
