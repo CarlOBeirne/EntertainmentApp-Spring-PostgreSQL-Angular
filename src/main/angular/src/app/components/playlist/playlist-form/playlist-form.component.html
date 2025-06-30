@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <h2> {{isEditMode ? 'Update Playlist' : 'New Playlist'}} </h2>
+  <form class="form-group" [formGroup]="playlistForm" (ngSubmit)="onSubmit()">
+    <div class="form-row mb-3">
+      <div class="col col-md-6">
+        <label for="name" class="form-label">Playlist Name</label>
+        <input id="name" type="text" class="form-control" formControlName="name" placeholder="My Playlist">
+        <div *ngIf="playlistForm.get('name')?.touched && playlistForm.get('name')?.invalid">
+          <small class="text-danger">Name cannot be blank</small>
+        </div>
+      </div>
+      <div class="col col-md-6">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" class="form-control" formControlName="description" rows="3"></textarea>
+        <div *ngIf="playlistForm.get('description')?.touched && playlistForm.get('description')?.invalid">
+          <small class="text-danger">Description must be less than 255 characters</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row mb-3">
+      <div class="col col-md-12">
+        <label for="tracks" class="form-label">Select Tracks</label>
+        <select id="tracks" multiple class="form-control" formControlName="tracks">
+          <option *ngFor="let track of trackList" [value]="track.id">{{ track.title }}</option>
+        </select>
+        <div *ngIf="playlistForm.get('tracks')?.touched && playlistForm.get('tracks')?.invalid">
+          <small class="text-danger">Please select at least one track</small>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success mr-2" [disabled]="playlistForm.invalid">Submit</button>
+    <button class="btn btn-danger me-2" (click)="cancel()">Cancel</button>
+  </form>
+  <div *ngIf="errorMessage">
+    <small class="text-danger">{{errorMessage}}</small>
+  </div>
+</div>

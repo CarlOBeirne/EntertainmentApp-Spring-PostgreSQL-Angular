@@ -1,0 +1,43 @@
+<div class="container-fluid mt-2">
+  <div class="row mb-1">
+    <div class="col col-md-2">
+      <h2>Playlist List</h2>
+    </div>
+    <div class="col col-md-2">
+      <button class="btn btn-secondary" (click)="createNewPlaylist()">New Playlist</button>
+    </div>
+    <div class="col col-md-3 ml-auto">
+      <input class="form-control co-md-3" type="search" [(ngModel)]="searchPlaylist" placeholder="Search">
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Number of Tracks</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let playlist of playlists">
+        <td>{{playlist.name}}</td>
+        <td>{{playlist.description}}</td>
+        <td>{{playlist.tracks.length || 0}}</td>
+        <td>
+          <button class="btn btn-warning btn-sm mr-2" (click)="editPlaylist(playlist.id)">Edit</button>
+          <button class="btn btn-danger btn-sm mr-2" (click)="deletePlaylist(playlist.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{errorMessage}}
+  </div>
+
+  <div *ngIf="!playlists.length && !errorMessage">
+    No playlists found.
+  </div>
+</div>

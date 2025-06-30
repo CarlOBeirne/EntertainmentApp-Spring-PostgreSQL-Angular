@@ -10,6 +10,9 @@ import {ArtistModule} from "./components/artist/artist.module";
 import {AuthModule} from "./components/auth/auth.module";
 import {HomeModule} from "./components/home/home.module";
 import {GenreModule} from "./components/genre/genre.module";
+import {PlaylistModule} from "./components/playlist/playlist.module";
+//import {PlaylistListComponent} from './components/playlist/playlist-list/playlist-list.component';
+//import {PlaylistFormComponent} from './components/playlist/playlist-form/playlist-form.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,9 +25,10 @@ import {GenreModule} from "./components/genre/genre.module";
     ArtistModule,
     AuthModule,
     HomeModule,
-    GenreModule
+    GenreModule,
+    PlaylistModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

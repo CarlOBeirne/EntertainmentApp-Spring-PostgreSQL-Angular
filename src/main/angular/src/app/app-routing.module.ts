@@ -9,6 +9,8 @@ import {RegistrationComponent} from "./components/auth/registration/registration
 import {HomeComponent} from "./components/home/home.component";
 import {GenreListComponent} from "./components/genre/genre-list/genre-list.component";
 import {GenreFormComponent} from "./components/genre/genre-form/genre-form.component";
+import {PlaylistListComponent} from "./components/playlist/playlist-list/playlist-list.component";
+import {PlaylistFormComponent} from "./components/playlist/playlist-form/playlist-form.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -24,6 +26,9 @@ const routes: Routes = [
   {path: 'track/new', component: TrackFormComponent},
   {path: 'track/all', component: TrackListComponent},
   {path: 'track/update/:id', component: TrackFormComponent},
+  {path: 'playlist/all', component: PlaylistListComponent},
+  {path: 'playlist/new', component: PlaylistFormComponent},
+  {path: 'playlist/update/:id', component: PlaylistFormComponent},
   {path: '', component: HomeComponent},
   {path: '', redirectTo: '/', pathMatch: 'full'},
   {path: '**', redirectTo: '/'}
