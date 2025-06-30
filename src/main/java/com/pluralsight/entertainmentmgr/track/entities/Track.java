@@ -3,6 +3,7 @@ package com.pluralsight.entertainmentmgr.track.entities;
 import com.pluralsight.entertainmentmgr.artist.entities.Artist;
 import com.pluralsight.entertainmentmgr.core.auditable.entity.BaseEntity;
 import com.pluralsight.entertainmentmgr.genre.entities.Genre;
+import com.pluralsight.entertainmentmgr.playlist.entities.Playlist;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,10 +47,15 @@ public class Track extends BaseEntity {
     )
     private Set<Artist> artists = new HashSet<>();
 
+    @ManyToMany(mappedBy = "tracks")
+    private Set<Playlist> playlists = new HashSet<>();
+
     public void addArtist(Artist artist) {
         if (artist == null) {
             artists = new HashSet<>();
         }
         artists.add(artist);
     }
+
+
 }
